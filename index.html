@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>NOIRÉ — New Season</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;500&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --black:#0a0908;
+  --cream:#eee8dc;
+  --muted:#9b968d;
+  --red:#8e3d32;
+  --line:rgba(238,232,220,.14);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--black);
+  color:var(--cream);
+  font-family:"DM Sans",sans-serif;
+  overflow-x:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font:inherit;
+}
+
+/* CURSOR */
+
+.cursor{
+  position:fixed;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--cream);
+  pointer-events:none;
+  z-index:1000;
+  mix-blend-mode:difference;
+  transform:translate(-50%,-50%);
+}
+
+/* NAV */
+
+.nav{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:50;
+  padding:27px 5vw;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-family:"Playfair Display",serif;
+  font-size:29px;
+  letter-spacing:4px;
+}
+
+.logo span{
+  color:var(--red);
+}
+
+.nav-links{
+  display:flex;
+  gap:35px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+.nav-links a{
+  opacity:.7;
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  opacity:1;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:20px;
+}
+
+.cart{
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.menu{
+  display:none;
+  border:0;
+  background:none;
+  color:white;
+  font-size:24px;
+}
+
+/* MOBILE MENU */
+
+.mobile-menu{
+  display:none;
+}
+
+/* HERO */
+
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:grid;
+  grid-template-columns:48% 52%;
+  overflow:hidden;
+}
+
+.hero-left{
+  background:#11100e;
+  display:flex;
+  align-items:center;
+  padding:130px 7vw 80px;
+  position:relative;
+  z-index:2;
+}
+
+.hero-content{
+  max-width:650px;
+}
+
+.eyebrow{
+  font-size:9px;
+  letter-spacing:3px;
+  color:#a79e91;
+  margin-bottom:25px;
+}
+
+.hero-title{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(75px,10vw,155px);
+  line-height:.78;
+  font-weight:400;
+  letter-spacing:-7px;
+}
+
+.hero-title em{
+  color:#aaa196;
+}
+
+.hero-copy{
+  max-width:400px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.9;
+  margin:40px 0;
+}
+
+.hero-buttons{
+  display:flex;
+  align-items:center;
+  gap:28px;
+}
+
+.shop-btn{
+  background:var(--cream);
+  color:#0b0a09;
+  padding:16px 24px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  transition:.3s;
+}
+
+.shop-btn:hover{
+  background:white;
+  transform:translateY(-3px);
+}
+
+.lookbook{
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+.hero-right{
+  position:relative;
+  background:
+  url("https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=90")
+  center/cover;
+}
+
+.hero-right:after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    90deg,
+    rgba(0,0,0,.2),
+    transparent
+  );
+}
+
+.hero-label{
+  position:absolute;
+  z-index:3;
+  right:35px;
+  bottom:35px;
+  font-size:9px;
+  letter-spacing:3px;
+  writing-mode:vertical-rl;
+  color:#d0c8ba;
+}
+
+.hero-season{
+  position:absolute;
+  z-index:4;
+  left:5vw;
+  bottom:35px;
+  color:#817b71;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+/* MARQUEE */
+
+.marquee{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  overflow:hidden;
+  white-space:nowrap;
+  padding:22px 0;
+}
+
+.marquee-track{
+  display:inline-block;
+  animation:move 20s linear infinite;
+}
+
+.marquee span{
+  font-family:"Playfair Display",serif;
+  font-size:25px;
+  margin-right:60px;
+}
+
+.marquee span:nth-child(even){
+  color:var(--red);
+  font-style:italic;
+}
+
+@keyframes move{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* INTRO */
+
+.intro{
+  padding:160px 10vw;
+  display:grid;
+  grid-template-columns:1fr 1.7fr;
+  gap:8vw;
+}
+
+.intro-number{
+  font-size:10px;
+  letter-spacing:3px;
+  color:var(--red);
+}
+
+.intro-content{
+  max-width:850px;
+}
+
+.intro-content h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(50px,6.5vw,95px);
+  font-weight:400;
+  line-height:.95;
+  letter-spacing:-4px;
+}
+
+.intro-content h2 em{
+  color:#aaa196;
+}
+
+.intro-text{
+  max-width:520px;
+  color:var(--muted);
+  line-height:1.9;
+  font-size:14px;
+  margin-top:40px;
+}
+
+/* COLLECTION */
+
+.collection{
+  padding:150px 5vw;
+  background:#11100e;
+}
+
+.collection-heading{
+  padding:0 5vw;
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  margin-bottom:80px;
+}
+
+.collection-heading h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(55px,7vw,100px);
+  line-height:.9;
+  font-weight:400;
+  letter-spacing:-4px;
+}
+
+.collection-heading h2 em{
+  color:#aaa196;
+}
+
+.collection-note{
+  max-width:280px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.8;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.product{
+  position:relative;
+  overflow:hidden;
+}
+
+.product-image{
+  height:650px;
+  background-position:center;
+  background-size:cover;
+  transition:transform .8s ease;
+}
+
+.product:hover .product-image{
+  transform:scale(1.04);
+}
+
+.product-info{
+  padding:22px 0 35px;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.product-info h3{
+  font-family:"Playfair Display",serif;
+  font-weight:400;
+  font-size:23px;
+}
+
+.product-info p{
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:1px;
+  margin-top:6px;
+}
+
+.product-price{
+  color:#d0c9bc;
+  font-size:12px;
+}
+
+.product-tag{
+  position:absolute;
+  top:18px;
+  left:18px;
+  background:var(--cream);
+  color:#111;
+  padding:8px 12px;
+  font-size:8px;
+  letter-spacing:2px;
+}
+
+.fashion1{
+  background-image:url("https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=1200&q=90");
+}
+
+.fashion2{
+  background-image:url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=90");
+}
+
+.fashion3{
+  background-image:url("https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1200&q=90");
+}
+
+/* EDITORIAL */
+
+.editorial{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:850px;
+}
+
+.editorial-image{
+  background:
+  url("https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1600&q=90")
+  center/cover;
+}
+
+.editorial-content{
+  padding:10vw;
+  display:flex;
+  justify-content:center;
+  flex-direction:column;
+  background:#d7d0c2;
+  color:#11100f;
+}
+
+.editorial-content .eyebrow{
+  color:#685e52;
+}
+
+.editorial-content h2{
+  font-family:"Playfair Display",serif;
+  font-weight:400;
+  font-size:clamp(60px,7vw,105px);
+  line-height:.9;
+  letter-spacing:-4px;
+}
+
+.editorial-content h2 em{
+  color:#685e52;
+}
+
+.editorial-content p{
+  max-width:420px;
+  color:#5f584e;
+  font-size:13px;
+  line-height:1.9;
+  margin-top:35px;
+}
+
+.editorial-link{
+  display:inline-block;
+  margin-top:35px;
+  padding-bottom:8px;
+  border-bottom:1px solid #8e3d32;
+  width:max-content;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+/* LOOKBOOK */
+
+.lookbook-section{
+  padding:160px 5vw;
+}
+
+.lookbook-heading{
+  padding:0 5vw;
+  margin-bottom:80px;
+}
+
+.lookbook-heading h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(55px,7vw,100px);
+  font-weight:400;
+  line-height:.9;
+  letter-spacing:-4px;
+}
+
+.lookbook-heading em{
+  color:#aaa196;
+}
+
+.look-grid{
+  display:grid;
+  grid-template-columns:1.5fr .8fr .8fr;
+  grid-template-rows:500px 500px;
+  gap:15px;
+}
+
+.look{
+  background-position:center;
+  background-size:cover;
+}
+
+.look-big{
+  grid-row:span 2;
+}
+
+.l1{
+  background-image:url("https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1400&q=90");
+}
+
+.l2{
+  background-image:url("https://images.unsplash.com/photo-1496217590455-aa63a8350eea?auto=format&fit=crop&w=1000&q=90");
+}
+
+.l3{
+  background-image:url("https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1000&q=90");
+}
+
+.l4{
+  background-image:url("https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1000&q=90");
+}
+
+/* VALUES */
+
+.values{
+  padding:160px 10vw;
+  background:#12110f;
+}
+
+.values-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  margin-top:90px;
+  border-top:1px solid var(--line);
+}
+
+.value{
+  padding:40px 30px 40px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.value:not(:last-child){
+  border-right:1px solid var(--line);
+  margin-right:30px;
+}
+
+.value-number{
+  color:var(--red);
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+.value h3{
+  font-family:"Playfair Display",serif;
+  font-size:30px;
+  font-weight:400;
+  margin:30px 0 15px;
+}
+
+.value p{
+  max-width:280px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.9;
+}
+
+/* NEWSLETTER */
+
+.newsletter{
+  padding:170px 10vw;
+  text-align:center;
+}
+
+.newsletter h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(55px,7vw,105px);
+  font-weight:400;
+  line-height:.9;
+  letter-spacing:-4px;
+}
+
+.newsletter h2 em{
+  color:#aaa196;
+}
+
+.newsletter p{
+  max-width:430px;
+  margin:30px auto 45px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.8;
+}
+
+.news-form{
+  max-width:480px;
+  margin:auto;
+  display:flex;
+  border-bottom:1px solid var(--line);
+}
+
+.news-form input{
+  flex:1;
+  background:transparent;
+  border:0;
+  outline:0;
+  padding:16px 0;
+  color:white;
+}
+
+.news-form button{
+  background:none;
+  border:0;
+  color:var(--cream);
+  cursor:pointer;
+  font-size:10px;
+  letter-spacing:2px;
+}
+
+/* FOOTER */
+
+footer{
+  border-top:1px solid var(--line);
+  padding:60px 5vw 30px;
+}
+
+.footer-logo{
+  font-family:"Playfair Display",serif;
+  font-size:30px;
+  letter-spacing:4px;
+}
+
+.footer-logo span{
+  color:var(--red);
+}
+
+footer p{
+  max-width:440px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.8;
+  margin:25px 0 60px;
+}
+
+.footer-bottom{
+  border-top:1px solid var(--line);
+  padding-top:25px;
+  display:flex;
+  justify-content:space-between;
+  color:#716d66;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+/* REVEAL */
+
+.reveal{
+  opacity:0;
+  transform:translateY(35px);
+  transition:.8s ease;
+}
+
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width:850px){
+
+.cursor{
+display:none;
+}
+
+.nav{
+padding:22px 6vw;
+}
+
+.nav-links,
+.cart{
+display:none;
+}
+
+.menu{
+display:block;
+}
+
+.mobile-menu{
+position:fixed;
+inset:0;
+z-index:40;
+background:#0a0908;
+display:flex;
+flex-direction:column;
+justify-content:center;
+gap:28px;
+padding:10vw;
+transform:translateY(-100%);
+transition:.4s;
+}
+
+.mobile-menu.open{
+transform:translateY(0);
+}
+
+.mobile-menu a{
+font-family:"Playfair Display",serif;
+font-size:42px;
+}
+
+.hero{
+grid-template-columns:1fr;
+min-height:850px;
+}
+
+.hero-left{
+padding:150px 7vw 80px;
+}
+
+.hero-right{
+min-height:500px;
+}
+
+.hero-title{
+font-size:78px;
+letter-spacing:-4px;
+}
+
+.hero-season{
+display:none;
+}
+
+.intro{
+grid-template-columns:1fr;
+padding:100px 7vw;
+gap:50px;
+}
+
+.collection{
+padding:100px 7vw;
+}
+
+.collection-heading{
+padding:0;
+display:block;
+}
+
+.collection-note{
+margin-top:30px;
+}
+
+.products{
+grid-template-columns:1fr;
+}
+
+.product-image{
+height:600px;
+}
+
+.editorial{
+grid-template-columns:1fr;
+}
+
+.editorial-image{
+min-height:600px;
+}
+
+.editorial-content{
+padding:100px 7vw;
+}
+
+.lookbook-section{
+padding:100px 7vw;
+}
+
+.lookbook-heading{
+padding:0;
+}
+
+.look-grid{
+grid-template-columns:1fr;
+grid-template-rows:repeat(4,500px);
+}
+
+.look-big{
+grid-row:auto;
+}
+
+.values{
+padding:100px 7vw;
+}
+
+.values-grid{
+grid-template-columns:1fr;
+}
+
+.value:not(:last-child){
+border-right:0;
+margin-right:0;
+}
+
+.newsletter{
+padding:120px 7vw;
+}
+
+.footer-bottom{
+flex-direction:column;
+gap:15px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<div class="cursor"></div>
+
+
+<header class="nav">
+
+<a href="#" class="logo">
+NOIRÉ<span>.</span>
+</a>
+
+<nav class="nav-links">
+<a href="#collection">Collection</a>
+<a href="#editorial">Editorial</a>
+<a href="#lookbook">Lookbook</a>
+<a href="#about">About</a>
+</nav>
+
+<div class="nav-right">
+
+<span class="cart">
+BAG (0)
+</span>
+
+<button class="menu">
+☰
+</button>
+
+</div>
+
+</header>
+
+
+<div class="mobile-menu">
+
+<a href="#collection">Collection</a>
+<a href="#editorial">Editorial</a>
+<a href="#lookbook">Lookbook</a>
+<a href="#about">About</a>
+
+</div>
+
+
+<section class="hero">
+
+<div class="hero-left">
+
+<div class="hero-content">
+
+<div class="eyebrow">
+AUTUMN / WINTER 2026
+</div>
+
+<h1 class="hero-title">
+Wear<br>
+<em>the mood.</em>
+</h1>
+
+<p class="hero-copy">
+NOIRÉ creates contemporary clothing for people
+who believe personal style is less about following
+trends and more about defining their own atmosphere.
+</p>
+
+<div class="hero-buttons">
+
+<a href="#collection" class="shop-btn">
+Shop the Drop
+</a>
+
+<a href="#lookbook" class="lookbook">
+View Lookbook ↘
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="hero-right">
+
+<div class="hero-label">
+NOIRÉ / 26
+</div>
+
+</div>
+
+
+<div class="hero-season">
+COLLECTION 001 — THE NEW DARK
+</div>
+
+</section>
+
+
+<div class="marquee">
+
+<div class="marquee-track">
+
+<span>THE NEW DARK</span>
+<span>NOIRÉ</span>
+<span>FORM · TEXTURE · ATTITUDE</span>
+<span>THE NEW DARK</span>
+<span>NOIRÉ</span>
+<span>FORM · TEXTURE · ATTITUDE</span>
+
+</div>
+
+</div>
+
+
+<section class="intro">
+
+<div class="intro-number">
+01 / 05
+</div>
+
+<div class="intro-content reveal">
+
+<div class="eyebrow">
+THE NOIRÉ PHILOSOPHY
+</div>
+
+<h2>
+Clothes are<br>
+<em>an atmosphere.</em>
+</h2>
+
+<p class="intro-text">
+We design pieces that exist somewhere between
+minimalism and expression. Clean silhouettes,
+unexpected textures and details that reveal
+themselves slowly.
+</p>
+
+</div>
+
+</section>
+
+
+<section class="collection" id="collection">
+
+<div class="collection-heading">
+
+<div>
+
+<div class="eyebrow">
+02 — NEW ARRIVALS
+</div>
+
+<h2>
+The latest<br>
+<em>drop.</em>
+</h2>
+
+</div>
+
+<p class="collection-note">
+Six pieces. One attitude.
+Designed in limited quantities
+and made to stay relevant.
+</p>
+
+</div>
+
+
+<div class="products">
+
+
+<article class="product reveal">
+
+<div class="product-tag">
+NEW
+</div>
+
+<div class="product-image fashion1"></div>
+
+<div class="product-info">
+
+<div>
+<h3>Shadow Coat</h3>
+<p>WOOL · ONYX</p>
+</div>
+
+<div class="product-price">
+₹8,900
+</div>
+
+</div>
+
+</article>
+
+
+<article class="product reveal">
+
+<div class="product-image fashion2"></div>
+
+<div class="product-info">
+
+<div>
+<h3>Form Shirt</h3>
+<p>COTTON · BONE</p>
+</div>
+
+<div class="product-price">
+₹4,200
+</div>
+
+</div>
+
+</article>
+
+
+<article class="product reveal">
+
+<div class="product-tag">
+LIMITED
+</div>
+
+<div class="product-image fashion3"></div>
+
+<div class="product-info">
+
+<div>
+<h3>After Dark Dress</h3>
+<p>SILK · NOIR</p>
+</div>
+
+<div class="product-price">
+₹6,800
+</div>
+
+</div>
+
+</article>
+
+
+</div>
+
+</section>
+
+
+<section class="editorial" id="editorial">
+
+<div class="editorial-image"></div>
+
+<div class="editorial-content reveal">
+
+<div class="eyebrow">
+03 — THE NEW SEASON
+</div>
+
+<h2>
+Nothing<br>
+<em>ordinary.</em>
+</h2>
+
+<p>
+The new collection explores contrast —
+soft against structured, light against shadow,
+classic silhouettes against unexpected proportions.
+</p>
+
+<a href="#lookbook" class="editorial-link">
+Explore the story →
+</a>
+
+</div>
+
+</section>
+
+
+<section class="lookbook-section" id="lookbook">
+
+<div class="lookbook-heading">
+
+<div class="eyebrow">
+04 — LOOKBOOK
+</div>
+
+<h2>
+A study in<br>
+<em>contrast.</em>
+</h2>
+
+</div>
+
+
+<div class="look-grid">
+
+<div class="look look-big l1 reveal"></div>
+
+<div class="look l2 reveal"></div>
+
+<div class="look l3 reveal"></div>
+
+<div class="look l4 reveal"></div>
+
+</div>
+
+</section>
+
+
+<section class="values" id="about">
+
+<div class="eyebrow">
+05 — WHAT WE BELIEVE
+</div>
+
+<h2>
+Less noise.<br>
+<em>More identity.</em>
+</h2>
+
+
+<div class="values-grid">
+
+
+<div class="value reveal">
+
+<div class="value-number">
+01
+</div>
+
+<h3>Intentional</h3>
+
+<p>
+Every silhouette begins with purpose.
+Nothing exists simply to fill space.
+</p>
+
+</div>
+
+
+<div class="value reveal">
+
+<div class="value-number">
+02
+</div>
+
+<h3>Limited</h3>
+
+<p>
+We create in smaller quantities so every
+piece feels considered rather than disposable.
+</p>
+
+</div>
+
+
+<div class="value reveal">
+
+<div class="value-number">
+03
+</div>
+
+<h3>Timeless</h3>
+
+<p>
+Trends disappear. Personal style doesn't.
+Our pieces are designed beyond seasons.
+</p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<section class="newsletter">
+
+<div class="eyebrow">
+NOIRÉ PRIVATE LIST
+</div>
+
+<h2>
+Stay in<br>
+<em>the know.</em>
+</h2>
+
+<p>
+New drops, private previews and stories
+from the world of NOIRÉ.
+</p>
+
+<form class="news-form">
+
+<input
+type="email"
+placeholder="YOUR EMAIL ADDRESS"
+required
+>
+
+<button type="submit">
+JOIN →
+</button>
+
+</form>
+
+</section>
+
+
+<footer>
+
+<div class="footer-logo">
+NOIRÉ<span>.</span>
+</div>
+
+<p>
+A fictional fashion brand concept created by
+<strong>AI VISION</strong> for portfolio demonstration.
+</p>
+
+<div class="footer-bottom">
+
+<span>
+© 2026 NOIRÉ
+</span>
+
+<span>
+WEB DESIGN · AI VISION
+</span>
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* CURSOR */
+
+const cursor=document.querySelector(".cursor");
+
+document.addEventListener("mousemove",(e)=>{
+
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+
+});
+
+
+/* MOBILE MENU */
+
+const menu=document.querySelector(".menu");
+const mobile=document.querySelector(".mobile-menu");
+
+menu.addEventListener("click",()=>{
+
+mobile.classList.toggle("open");
+
+menu.textContent=
+mobile.classList.contains("open")
+?"✕"
+:"☰";
+
+});
+
+
+document.querySelectorAll(".mobile-menu a").forEach(link=>{
+
+link.addEventListener("click",()=>{
+
+mobile.classList.remove("open");
+
+menu.textContent="☰";
+
+});
+
+});
+
+
+/* NEWSLETTER */
+
+document.querySelector(".news-form").addEventListener("submit",(e)=>{
+
+e.preventDefault();
+
+const button=e.target.querySelector("button");
+
+button.textContent="WELCOME ✓";
+
+setTimeout(()=>{
+
+button.textContent="JOIN →";
+
+},2500);
+
+});
+
+
+/* SCROLL REVEAL */
+
+const observer=new IntersectionObserver(
+
+(entries)=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("show");
+
+}
+
+});
+
+},
+
+{
+threshold:.12
+}
+
+);
+
+
+document.querySelectorAll(".reveal").forEach(el=>{
+
+observer.observe(el);
+
+});
+
+</script>
+
+</body>
+</html>
